@@ -9,7 +9,7 @@ namespace Backend
         [Required]
         public string Email { get; set; }
         [Required]
-        public string Passsword { get; set; }
+        public string Password { get; set; }
         [Required]
         public int Salary { get; set; }
         [Required]

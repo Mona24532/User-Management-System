@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Backend.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,16 +17,16 @@ namespace Backend.Controllers
         }
 
         [HttpPost("login-Post")]
-        public async Task<IActionResult> Login(EmployeeDto dto)
+        public async Task<IActionResult> Login(EmployeeLoginDto dto)
         {
-            var login = _service.login(dto);
+            var login =await _service.login(dto);
             return Ok(login);
         }
         [HttpPost("Post")]
 
         public async Task<IActionResult> Post(EmployeeDto dto)
         {
-            var post = _service.store(dto);
+            var post = await _service.store(dto);
             return Ok(post);
         }
         [Authorize]
@@ -33,8 +34,15 @@ namespace Backend.Controllers
 
         public async Task<IActionResult> Get()
         {
-            var list = _service.Get();
+            var list =await _service.Get();
             return Ok(list);
+        }
+        [Authorize]
+        [HttpPut("Put/{id}")]
+        public async Task<IActionResult> Put(int id,EmployeeDto emp)
+        {
+            var emp1 = await _service.put(id, emp);
+            return Ok(emp1);
         }
     }
 }

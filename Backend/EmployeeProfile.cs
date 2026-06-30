@@ -8,6 +8,7 @@ namespace Backend
         public EmployeeProfile()
         {
             CreateMap<Employee, EmployeeDto>().ReverseMap();
+            CreateMap<Employee, EmployeeLoginDto>().ReverseMap();
          
         }
     }
