@@ -2,7 +2,7 @@
 using Backend.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Backend.Controllers
+namespace Backend
 {
     public class CrudService
     {

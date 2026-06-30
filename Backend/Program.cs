@@ -18,6 +18,7 @@ builder.Services.AddDbContext<DBConfig>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 builder.Services.AddScoped<JWTService>();
+builder.Services.AddScoped<CrudService>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -45,6 +46,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+builder.Services.AddAutoMapper(cgf =>
+{
+    cgf.AddProfile(new EmployeeProfile());
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
