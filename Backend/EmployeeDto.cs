@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Backend
 {
@@ -15,6 +16,7 @@ namespace Backend
         [Required]
         public string Role { get; set; }
         [Required]
-        public int Position_id { get; set; }
+        
+        public int PositionId { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Backend.Models
+﻿using System.Text.Json.Serialization;
+
+namespace Backend.Models
 {
     public class Employee
     {
@@ -8,7 +10,8 @@
         public string Password { get; set; }
         public int Salary { get; set; }
         public string Role { get; set; }
-        public int Position_id { get; set; }
+        
+        public int PositionId { get; set; }
 
     }
 }

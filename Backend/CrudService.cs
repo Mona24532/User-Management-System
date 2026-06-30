@@ -56,9 +56,9 @@ namespace Backend
             }
             return _mapper.Map<List<EmployeeDto>>(emp);
         }
-        public async Task<Employee> put(int id,EmployeeDto emp1,string role)
+        public async Task<Employee> put(int id,EmployeeDto emp1)
         {
-            if (role!="Admin")
+            if (emp1.Role!="Admin")
             {
                 throw new UnauthorizedException("Admin jogosultság szükséges a frissítéshez");
             }

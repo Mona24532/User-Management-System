@@ -22,6 +22,7 @@ namespace Backend.Controllers
             var login =await _service.login(dto);
             return Ok(login);
         }
+        [Authorize]
         [HttpPost("Post")]
 
         public async Task<IActionResult> Post(EmployeeDto dto)
@@ -39,7 +40,7 @@ namespace Backend.Controllers
         }
         [Authorize]
         [HttpPut("Put/{id}")]
-        public async Task<IActionResult> Put(int id,EmployeeDto emp)
+        public async Task<IActionResult> Put( int id,EmployeeDto emp)
         {
             var emp1 = await _service.put(id, emp);
             return Ok(emp1);
