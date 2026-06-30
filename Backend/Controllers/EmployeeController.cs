@@ -44,5 +44,12 @@ namespace Backend.Controllers
             var emp1 = await _service.put(id, emp);
             return Ok(emp1);
         }
+        [Authorize]
+        [HttpDelete("Delete/{id}")]
+        public async Task<IActionResult>Delete(int id)
+        {
+            var delete_emp = await _service.delete(id);
+            return Ok(delete_emp);
+        }
     }
 }

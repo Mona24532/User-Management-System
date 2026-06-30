@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Backend.Exceptions;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using System.Net;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -34,15 +36,37 @@ namespace Backend
         private static Task HandleExceptionAsync(HttpContext context,Exception e)
         {
             context.Response.ContentType = "application/json";
-            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-
-            var response = new
+            //context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            HttpStatusCode status = HttpStatusCode.InternalServerError;
+            string message = "Valami történt!";
+            switch (e)
             {
-                message = "Valami hiba történt!",
+                case NotFoundException:
+                    status = HttpStatusCode.NotFound;
+                    message = e.Message;
+                    break;
+
+                case BadRequestException:
+                    status = HttpStatusCode.BadRequest;
+                    message = e.Message;
+                    break;
+
+                case UnauthorizedException:
+                    status = HttpStatusCode.Unauthorized;
+                    message = e.Message;
+                    break;
+                default:
+                    message = e.Message;
+                    break;
+            }
+            context.Response.StatusCode = (int)status;
+
+            return context.Response.WriteAsJsonAsync(new
+            {
+                message,
                 detail = e.Message
-            };
-            var json = JsonSerializer.Serialize(response);
-            return context.Response.WriteAsJsonAsync(json);
+            });
+
         }
     }
 

@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
+using Backend.Exceptions;
 using Backend.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
+using System.Diagnostics;
 
 namespace Backend
 {
@@ -29,7 +32,7 @@ namespace Backend
             var user = await GetEmpByEmail(dto);
             if (user == null)
             {
-                 throw new Exception();
+                throw new NotFoundException("Nincs ilyen felhasználó email cím!");
             }
             return _jwtservice.GenerateToken();
         }
@@ -63,6 +66,19 @@ namespace Backend
             await _config.SaveChangesAsync();
 
             return emp;
+        }
+
+        public async Task<Employee> delete(int id)
+        {
+            var old_emp = await _config.Employees.FirstOrDefaultAsync(e => e.Id == id);
+            if (old_emp == null)
+            {
+                throw new Exception("Nincs ilyen felhasználó!");
+            }
+            _config.Employees.Remove(old_emp);
+            await _config.SaveChangesAsync();
+            return old_emp;
+
         }
     }
 }
