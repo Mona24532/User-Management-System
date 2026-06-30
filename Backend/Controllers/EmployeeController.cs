@@ -46,9 +46,9 @@ namespace Backend.Controllers
         }
         [Authorize]
         [HttpDelete("Delete/{id}")]
-        public async Task<IActionResult>Delete(int id)
+        public async Task<IActionResult>Delete(int id,string role)
         {
-            var delete_emp = await _service.delete(id);
+            var delete_emp = await _service.delete(id,role);
             return Ok(delete_emp);
         }
     }
