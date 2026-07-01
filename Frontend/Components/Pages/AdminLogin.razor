@@ -1,8 +1,24 @@
-﻿<h3>AdminLogin</h3>
+﻿@inject AuthService service;
+@inject NavigationManager navigation;
+<h3>AdminLogin</h3>
 
-<form>
+<form >
+	<label>Email</label>
+	<input type="email" @bind="model.Email"/>
+	<label>Password</label>
+	<input type="password" @bind="model.Password"/>
 
+	<button type="submit" @onclick="Login">Belépés</button>
 </form>
 @code {
-
+	private LoginModel model = new();
+	public async Task Login()
+	{
+		var token = await service.login(model);
+		if (!string.IsNullOrEmpty(token))
+		{
+			TokenStore.token = token;
+			navigation.NavigateTo("/adminsite");
+		}
+	}
 }
