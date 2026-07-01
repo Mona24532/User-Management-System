@@ -1,5 +1,7 @@
 ﻿@inject AuthService service;
 @inject NavigationManager navigation;
+@rendermode InteractiveServer
+@page "/adminlogin";
 <h3>AdminLogin</h3>
 
 <form >
@@ -8,7 +10,7 @@
 	<label>Password</label>
 	<input type="password" @bind="model.Password"/>
 
-	<button type="submit" @onclick="Login">Belépés</button>
+	<button type="button" @onclick="Login">Belépés</button>
 </form>
 @code {
 	private LoginModel model = new();
