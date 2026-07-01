@@ -114,18 +114,6 @@ namespace Backend
             return _jwtservice.GenerateToken(user);
         }
        
-        public async Task<string> adminLoginAlt(EmployeeDto dto)
-        {
-            var user = await _config.Employees.FirstOrDefaultAsync(e => e.Email == dto.Email);
-            if (user == null)
-            {
-                throw new NotFoundException("Nincs iylen felhasználó!");
-            }
-            if (dto.Role != "Admin")
-            {
-                throw new NotFoundException("Csak Admin léphet be!");
-            }
-            return _jwtservice.GenerateToken(user);
-        }
+       
     }
 }
