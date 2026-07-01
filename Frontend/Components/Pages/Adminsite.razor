@@ -1,7 +1,13 @@
 ﻿@page "/adminsite";
+@inject NavigationManager navigation;
+@rendermode InteractiveServer
 <h3>Adminsite</h3>
 
-<button>Kijelentkezés</button>
+<button @onclick="Logout">Kijelentkezés</button>
 @code {
-
+	public async Task Logout()
+	{
+		TokenStore.token = null;
+		navigation.NavigateTo("/adminlogin");
+	}
 }

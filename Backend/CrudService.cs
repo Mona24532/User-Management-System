@@ -92,5 +92,15 @@ namespace Backend
             return old_emp;
 
         }
+        public async Task<string> Adminlogin(EmployeeLoginDto dto)
+        {
+            var user = await GetEmpByEmail(dto);
+            
+            if (dto.Email!="Admin@gmail.hu")
+            {
+                throw new NotFoundException("Csak Admin léphet be!");
+            }
+            return _jwtservice.GenerateToken(user);
+        }
     }
 }

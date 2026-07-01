@@ -55,5 +55,11 @@ namespace Backend.Controllers
             var delete_emp = await _service.delete(id,role);
             return Ok(delete_emp);
         }
+        [HttpPost("admin-Post")]
+        public async Task<IActionResult> AdminPost(EmployeeLoginDto dto)
+        {
+            var adminlog = await _service.Adminlogin(dto);
+            return Ok(adminlog);
+        }
     }
 }

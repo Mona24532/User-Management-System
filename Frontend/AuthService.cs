@@ -17,5 +17,15 @@
             }
             return await response.Content.ReadAsStringAsync();
         }
+
+        public async Task<string>adminlogin(LoginModel model)
+        {
+            var response = await _http.PostAsJsonAsync("api/Employee/admin-Post", model);
+            if (!response.IsSuccessStatusCode)
+            {
+                return null;
+            }
+            return await response.Content.ReadAsStringAsync();
+        }
     }
 }

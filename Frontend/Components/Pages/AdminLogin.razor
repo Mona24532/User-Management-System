@@ -16,7 +16,7 @@
 	private LoginModel model = new();
 	public async Task Login()
 	{
-		var token = await service.login(model);
+		var token = await service.adminlogin(model);
 		if (!string.IsNullOrEmpty(token))
 		{
 			TokenStore.token = token;
