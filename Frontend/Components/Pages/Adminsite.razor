@@ -1,10 +1,20 @@
-﻿@page "/adminsite";
+﻿@using Microsoft.AspNetCore.Authorization
+@page "/adminsite";
 @inject NavigationManager navigation;
 @rendermode InteractiveServer
+
 <h3>Adminsite</h3>
 
 <button @onclick="Logout">Kijelentkezés</button>
 @code {
+
+	protected override void OnInitialized()
+	{
+		if (string.IsNullOrEmpty(TokenStore.token))
+		{
+			navigation.NavigateTo("/adminlogin");
+		}
+	}
 	public async Task Logout()
 	{
 		TokenStore.token = null;
