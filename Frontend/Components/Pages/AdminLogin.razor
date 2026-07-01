@@ -10,17 +10,29 @@
 	<label>Password</label>
 	<input type="password" @bind="model.Password"/>
 
-	<button type="button" @onclick="Login">Belépés</button>
+	<button type="button"  @onclick="Login">Belépés</button>
 </form>
 @code {
 	private LoginModel model = new();
+
+
 	public async Task Login()
 	{
-		var token = await service.adminlogin(model);
-		if (!string.IsNullOrEmpty(token))
+		try
 		{
-			TokenStore.token = token;
-			navigation.NavigateTo("/adminsite");
+			var token = await service.adminlogin(model);
+			if (!string.IsNullOrEmpty(token))
+			{
+				TokenStore.token = token;
+				await Task.Delay(50);
+
+				navigation.NavigateTo("/adminsite");
+			}
 		}
+		catch (Exception e)
+		{
+			Console.WriteLine(e.Message);
+		}
+
 	}
 }

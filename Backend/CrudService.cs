@@ -94,9 +94,34 @@ namespace Backend
         }
         public async Task<string> Adminlogin(EmployeeLoginDto dto)
         {
-            var user = await GetEmpByEmail(dto);
+            /*var user = await GetEmpByEmail(dto);
             
             if (dto.Email!="Admin@gmail.hu")
+            {
+                throw new NotFoundException("Csak Admin léphet be!");
+            }
+            return _jwtservice.GenerateToken(user);*/
+
+            var user = await _config.Employees.FirstOrDefaultAsync(e => e.Email == dto.Email);
+            if (user == null)
+            {
+                throw new NotFoundException("Nincs ilyen felhasználó!");
+            }
+            if (user.Role != "Admin")
+            {
+                throw new NotFoundException("Csak Admin léphet be!");
+            }
+            return _jwtservice.GenerateToken(user);
+        }
+       
+        public async Task<string> adminLoginAlt(EmployeeDto dto)
+        {
+            var user = await _config.Employees.FirstOrDefaultAsync(e => e.Email == dto.Email);
+            if (user == null)
+            {
+                throw new NotFoundException("Nincs iylen felhasználó!");
+            }
+            if (dto.Role != "Admin")
             {
                 throw new NotFoundException("Csak Admin léphet be!");
             }

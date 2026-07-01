@@ -8,6 +8,7 @@
 	public async Task Logout()
 	{
 		TokenStore.token = null;
+		Console.WriteLine(TokenStore.token);
 		navigation.NavigateTo("/adminlogin");
 	}
 }

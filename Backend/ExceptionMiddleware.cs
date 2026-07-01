@@ -35,6 +35,7 @@ namespace Backend
         }
         private static Task HandleExceptionAsync(HttpContext context,Exception e)
         {
+            context.Response.Clear();
             context.Response.ContentType = "application/json";
             //context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             HttpStatusCode status = HttpStatusCode.InternalServerError;
