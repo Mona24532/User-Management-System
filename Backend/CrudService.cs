@@ -34,7 +34,7 @@ namespace Backend
             {
                 throw new NotFoundException("Nincs ilyen felhasználó email cím!");
             }
-            return _jwtservice.GenerateToken();
+            return _jwtservice.GenerateToken(user);
         }
 
         public async Task<Employee> store(EmployeeDto dto)
@@ -56,9 +56,9 @@ namespace Backend
             }
             return _mapper.Map<List<EmployeeDto>>(emp);
         }
-        public async Task<Employee> put(int id,EmployeeDto emp1)
+        public async Task<Employee> put(int id,EmployeeDto emp1,string? role)
         {
-            if (emp1.Role!="Admin")
+            if (role!="Admin")
             {
                 throw new UnauthorizedException("Admin jogosultság szükséges a frissítéshez");
             }
@@ -75,7 +75,7 @@ namespace Backend
             return emp;
         }
 
-        public async Task<Employee> delete(int id,string role)
+        public async Task<Employee> delete(int id,string? role)
         {
 
             if (role!="Admin")

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Backend.Controllers
 {
@@ -42,13 +43,15 @@ namespace Backend.Controllers
         [HttpPut("Put/{id}")]
         public async Task<IActionResult> Put( int id,EmployeeDto emp)
         {
-            var emp1 = await _service.put(id, emp);
+            var role = User.FindFirst(ClaimTypes.Role)?.Value;
+            var emp1 = await _service.put(id,emp,role);
             return Ok(emp1);
         }
         [Authorize]
-        [HttpDelete("Delete/{id}")]
-        public async Task<IActionResult>Delete(int id,string role)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult>Delete(int id)
         {
+            var role = User.FindFirst(ClaimTypes.Role)?.Value;
             var delete_emp = await _service.delete(id,role);
             return Ok(delete_emp);
         }
