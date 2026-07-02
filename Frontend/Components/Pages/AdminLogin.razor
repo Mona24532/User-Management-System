@@ -4,14 +4,17 @@
 @page "/adminlogin";
 <h3>AdminLogin</h3>
 
-<form >
+<EditForm model="@model" OnValidSubmit="Login">
+	<DataAnnotationsValidator />
+	<ValidationSummary />
 	<label>Email</label>
-	<input type="email" @bind="model.Email"/>
+	<InputText  @bind-Value="model.Email"/>
 	<label>Password</label>
-	<input type="password" @bind="model.Password"/>
+	<InputText  @bind-Value="model.Password"/>
+	
 
-	<button type="button"  @onclick="Login">Belépés</button>
-</form>
+	<button type="submit">Belépés</button>
+</EditForm>
 @code {
 	private LoginModel model = new();
 
