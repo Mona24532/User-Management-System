@@ -21,18 +21,16 @@ namespace Backend
         }
 
 
-       public async Task<Employee> GetEmpByEmail(EmployeeLoginDto dto)
-        {
-            return await _config.Employees.FirstOrDefaultAsync(e => e.Email == dto.Email);
-        }
-
-
         public async Task<string> login(EmployeeLoginDto dto)
         {
-            var user = await GetEmpByEmail(dto);
+            var user = await _config.Employees.FirstOrDefaultAsync(e => e.Email == dto.Email);
             if (user == null)
             {
                 throw new NotFoundException("Nincs ilyen felhasználó email cím!");
+            }
+            if (user.Role != "User")
+            {
+                throw new NotFoundException("Csak User felhasználó léphet be!");
             }
             return _jwtservice.GenerateToken(user);
         }
